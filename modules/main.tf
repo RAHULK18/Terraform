@@ -1,9 +1,9 @@
 provider "aws" {
- region = "us-west-2"
- profile = "terraform-personal"
+  region = "us-east-1"
 }
 
-resource "aws_instance" "module-ec2" {
-  ami = var.ami_value
-  instance_type = var.instance_type_value
+module "ec2_instance" {
+  source = "../modules/ec2_instance"
+  ami_value = "ami-0c587d11c0a52bfbf" # replace this
+  instance_type_value = "t2.micro"
 }
