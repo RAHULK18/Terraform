@@ -1,7 +1,7 @@
 #create key pair
 resource "aws_key_pair" "demo-key" {
   key_name = "terraform-demo-rahul"
-  public_key = file("/Users/rahulkarmakar/Desktop/terraform-demo.pub")
+  public_key = file("/Users/rahulkarmakar/Desktop/terraform-demo.pub") #change this with your own location
 }
 
 #create vpc 
@@ -126,7 +126,7 @@ resource "aws_s3_bucket_acl" "demoacl" {
   acl    = "private"
 }
 
-#create ec2 instance
+#create ec2 instances
 resource "aws_instance" "demo-web1" {
   ami = var.ami
   instance_type = var.instance_type
@@ -153,5 +153,65 @@ resource "aws_instance" "demo-web2" {
 
 }
 
+#create alb
+
+resource "aws_lb" "demoalb" {
+  name = "demoalb"
+  internal = false 
+  load_balancer_type = "application"
 
 
+  security_groups = [aws_security_group.demosg.id]
+  subnets = [aws_subnet.sub1.id, aws_subnet.sub2.id]
+  tags = {
+   Name =  "web"
+  }
+}
+
+#create target group
+resource "aws_lb_target_group" "demotg" {
+  name = "demoTG"
+  port = 80
+  protocol = "HTTP"
+  vpc_id = aws_vpc.demo-vpc.id
+
+  health_check {
+    path = "/"
+    port = 80
+
+  }
+}
+#attach instances to target group
+resource "aws_lb_target_group_attachment" "attach1" {
+  target_group_arn = aws_lb_target_group.demotg.arn
+  target_id = aws_instance.demo-web1.id
+  port = 80
+
+}
+
+
+
+resource "aws_lb_target_group_attachment" "attach2" {
+  target_group_arn = aws_lb_target_group.demotg.arn
+  target_id = aws_instance.demo-web2.id
+  port = 80
+
+}
+
+#create listener
+resource "aws_lb_listener" "listener" {
+  load_balancer_arn = aws_lb.demoalb.arn
+  port = 80
+  protocol = "HTTP"
+  
+  default_action {
+    target_group_arn = aws_lb_target_group.demotg.arn
+    type = "forward"
+  }
+
+}
+
+#get the output of loadbalancer dns
+output "loadbalancerdns" {
+  value = aws_lb.demoalb.dns_name
+}
