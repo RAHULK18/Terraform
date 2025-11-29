@@ -90,6 +90,7 @@ resource "aws_instance" "rk-ec2" {
     {
       rk-micro = "t2.micro"
       rk-medium = "t2.medium"
+      rk-micro2 = "t2.micro"
       
     }
   )
