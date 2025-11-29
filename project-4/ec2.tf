@@ -111,3 +111,8 @@ resource "aws_instance" "rk-ec2" {
     
  }  
 }
+
+/*resource "aws_instance" "my_new_ec2" {
+    ami = "unknown"
+    instance_type =  "unknown"
+}*/
