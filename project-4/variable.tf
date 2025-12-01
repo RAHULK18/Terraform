@@ -19,7 +19,7 @@ variable "ec2_az" {
 
 
 variable "env" {
-  default = "prd"
+  default = "dev"
   type = string
 
 }
