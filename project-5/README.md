@@ -4,7 +4,7 @@ Modular Multi-Environment Deployment (Dev / Stg / Prd)
 This project demonstrates how to build reusable Terraform modules to deploy AWS infrastructure for multiple environments (dev, stg, prd) using a single code base.
 
 It showcases modular design, network provisioning, compute provisioning, and AWS service integration.
-
+```bash
 🚀 Project Overview
 
 This mini-project provisions the following AWS resources:
@@ -48,7 +48,7 @@ AWS Account
 This structure demonstrates proper modularization and reusability for multiple cloud environments.
 
 📁 Project Structure
-project-5/
+project-3/
 ├── infra-app/
 │   ├── dynamodb.tf          # DynamoDB table
 │   ├── ec2.tf               # EC2 instance + key pair logic
@@ -62,16 +62,16 @@ project-5/
 └── terraform.tfstate.backup
 
 📦 Module Inputs
-Variable	Description
-env	Environment name (dev, stg, prd)
-instance_count	Number of EC2 instances
-instance_type	EC2 instance type
-ami_id	AMI ID to use
-bucket_name	S3 bucket base name
-hash_key	DynamoDB primary key
-ec2_az	Availability zone
-ec2_root_block_size	EC2 root disk size
-aws_security_group	Reserved for future SG module integration
+Variable        Description
+env     Environment name (dev, stg, prd)
+instance_count  Number of EC2 instances
+instance_type   EC2 instance type
+ami_id  AMI ID to use
+bucket_name     S3 bucket base name
+hash_key        DynamoDB primary key
+ec2_az  Availability zone
+ec2_root_block_size     EC2 root disk size
+aws_security_group      Reserved for future SG module integration
 🧩 How It Works
 1️⃣ Initialization
 terraform init
@@ -96,17 +96,6 @@ Redacted Preview
 
 This repository does not expose environment-specific or sensitive bootstrap commands.
 
-🌐 Outputs (optional)
-
-Add if needed later:
-
-EC2 public IP
-
-S3 bucket name
-
-DynamoDB table name
-
-I can generate an outputs.tf file for you — just tell me.
 
 🧠 What You Learn From This Project
 
@@ -119,24 +108,3 @@ Automating EC2 provisioning with variables
 Creating AWS networking (VPC, Subnets, IGW, Routes)
 
 Designing scalable and clean Terraform project layouts
-
-Perfect for:
-
-✔ DevOps learning
-✔ Interview demonstration
-✔ Cloud portfolio on GitHub
-✔ Real-world Terraform basics
-
-📝 Future Enhancements
-
-Add remote backend using S3 + DynamoDB
-
-Add NAT Gateway + private subnets
-
-Add Load Balancer (ALB) support
-
-Add outputs.tf for easier access
-
-Add Makefile for automation
-
-Convert this module to a Terraform Registry module
