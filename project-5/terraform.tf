@@ -7,7 +7,7 @@ terraform {
   }
 }
 
- /* backend "s3" {
+/*backend "s3" {
 
   bucket = "${var.env}-${var.bucket_name}"
   key = "terraform.tfstate"

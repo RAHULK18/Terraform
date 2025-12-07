@@ -88,14 +88,14 @@ resource "aws_security_group" "rk-sg" {
 
 resource "aws_instance" "rk-ec2" {
   count = var.instance_count
-  depends_on = [ aws_security_group.rk-sg ]
+  #depends_on = [ aws_security_group.rk-sg ]
   ami = var.ami_id #interpolation
   instance_type = var.instance_type
   availability_zone = var.ec2_az
-  key_name = aws_key_pair.rk-key.id
+  key_name = aws_key_pair.rk-key.key_name
   subnet_id = aws_subnet.rk-subnet.id
   vpc_security_group_ids = [aws_security_group.rk-sg.id]  
-  user_data = file("/Users/rahulkarmakar/Desktop/Terraform/project-5/infra-app/user_data.sh")
+  #user_data = file("/Users/rahulkarmakar/Desktop/Terraform/project-5/infra-app/user_data.sh")
   root_block_device {
     volume_size = var.env == "prd" ? 20 : var.ec2_root_block_size #conditional
     volume_type = "gp3"
@@ -107,7 +107,3 @@ resource "aws_instance" "rk-ec2" {
  }  
 }
 
-/*resource "aws_instance" "my_new_ec2" {
-    ami = "unknown"
-    instance_type =  "unknown"
-}*/

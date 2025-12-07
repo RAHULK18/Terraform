@@ -8,7 +8,7 @@ resource "aws_dynamodb_table" "base-dynamodb" {
   }
   
   tags = {
-    Name        = "rk-state-management"
-    Environment = "production"
+    Name        = "${var.env}-rk-state-management"
+    Environment = var.env
   }
 }

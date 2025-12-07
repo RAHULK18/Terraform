@@ -23,8 +23,11 @@ variable "ami_id" {
   type = string
 }
 
+variable "aws_security_group" {
+   type = string
+}
 variable "ec2_root_block_size" {
-  default = "10"
+
   type = number
 }
 
