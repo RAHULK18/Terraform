@@ -14,8 +14,8 @@ resource "aws_default_security_group" "default_vpc_rk" {
 
   ingress {
     protocol    = "tcp"
-    from_port   = 3000
-    to_port     = 3000
+    from_port   = 8080
+    to_port     = 8080
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -46,17 +46,21 @@ resource "aws_default_security_group" "default_vpc_rk" {
 }
 
 resource "aws_key_pair" "demo_key" {
-  key_name   = "terraform-demo-rahul"
+  key_name   = "jenkins-demo-rahul"
   public_key = file("/Users/rahulkarmakar/Desktop/terraform-demo.pub")
 }
 
 resource "aws_instance" "terraform_ec2" {
-  ami                    = "ami-0d8ff527aeca17d19"
-  instance_type          = "t2.micro"
+  ami                    = "ami-0786adace1541ca80"
+  instance_type          = "t2.medium"
   key_name               = aws_key_pair.demo_key.key_name
   vpc_security_group_ids = [aws_default_security_group.default_vpc_rk.id]
-
+root_block_device {
+    volume_size = 15
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
   tags = {
-    Name = "Docker-rk"
+    Name = "jenkins-rk"
   }
 }
